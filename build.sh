@@ -1,1 +1,1 @@
-git pull && docker build . -t proxy
+git pull && docker build . -t tee-id-proxy
