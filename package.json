@@ -30,6 +30,7 @@
     "cors": "^2.8.5",
     "ethers": "^5.7.2",
     "express": "^4.17.1",
+    "firebase-admin": "^11.5.0",
     "helmet": "^4.4.1",
     "ioredis": "^4.19.4",
     "jsonwebtoken": "^8.5.1",

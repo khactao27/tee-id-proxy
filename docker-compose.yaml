@@ -4,20 +4,40 @@ services:
   mongodb:
     image: mongo:latest
     ports:
-      - '8010:27017'
+      - '8016:27017'
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=teeprogram
-      - MONGO_INITDB_ROOT_PASSWORD=@teeid@1234
-    command: mongod
+      - MONGO_INITDB_ROOT_USERNAME=tee
+      - MONGO_INITDB_ROOT_PASSWORD=f217s18AhSd
+    command: mongod --auth
     volumes:
       - /media/NewHDD/erp/mongo-data:/data/db
     networks:
-      - tee-id
+      - tee
     restart: always
-  tee-upload:
+  proxy:
+    image: "tee-id-proxy:latest"
+    ports:
+      - '8005:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'id-proxy'
+      DB_USER: 'tee'
+      DB_PASS: 'f217s18AhSd'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      EXPIRE_TOKEN: '100y'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://authorization:3000/authorization"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - tee
+    restart: always
+
+  upload:
     image: "tee-upload:latest"
     ports:
-      - '8001:3000'
+      - '8010:3000'
     environment:
       PORT: '3000'
       DEST_LOCATION: '/uploads'
@@ -25,28 +45,10 @@ services:
       SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
       INTERNAL_TOKEN: '123'
     networks:
-      - tee-id
+      - tee
     restart: always
     volumes:
       - /media/NewHDD/erp/uploadFolder:/uploads
-  tee-id-proxy:
-    image: "tee-id-proxy:latest"
-    ports:
-      - '8000:3000'
-    environment:
-      PORT: '3000'
-      TZ: 'Asia/Bangkok'
-      DB: 'tee'
-      DB_USER: 'teeprogram'
-      DB_PASS: '@teeid@1234'
-      DB_SERVERS: 'mongodb:27017'
-      SECRET_KEY: 'cur$$123$$jl1haG'
-      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
-      AUTHORIZATION_CMS_URL: "http://authorization:3000/authorization"
-      INTERNAL_TOKEN: '123'
-    networks:
-      - tee-id
-    restart: always
 networks:
-  tee-id:
+  tee:
     driver: bridge

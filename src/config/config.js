@@ -1,3 +1,5 @@
+const DEFAULT_GOOGLE_APPLICATION_CREDENTIALS = require.resolve('./teeid-eaa77-firebase-adminsdk-6c205-1327df8963.json')
+
 const serverSettings = {
   port: process.env.PORT || 8000,
   basePath: process.env.BASE_PATH || '/api'
@@ -13,14 +15,20 @@ const httpCode = {
   ADMIN_REQUIRE: 406,
   UNAUTHORIZED: 401
 }
+
 const dbSettings = {
-  db: process.env.DB || 'tee-id-proxy',
-  user: process.env.DB_USER || '',
-  pass: process.env.DB_PASS || '',
+  db: process.env.DB || 'id-proxy',
+  user: process.env.DB_USER || 'tee',
+  pass: process.env.DB_PASS || 'teeidadmin',
   repl: process.env.DB_REPLS || '',
   servers: (process.env.DB_SERVERS) ? process.env.DB_SERVERS.split(',') : [
-    'localhost:27017'
+    '222.255.238.183:8016'
   ]
+}
+
+const firebaseConfig = {
+  databaseURL: process.env.FIREBASE_DATABASE_URL || 'https://vtvfun-467b4.firebaseio.com/',
+  serviceAccountPath: process.env.GOOGLE_APPLICATION_CREDENTIALS || DEFAULT_GOOGLE_APPLICATION_CREDENTIALS
 }
 
 const blockchainConfig = {
@@ -204,4 +212,4 @@ const serverHelper = function () {
 
   return { decodeToken, encryptPassword, verifyToken, genToken, deepCompare, stringToSlugSearch, stringToSlug }
 }
-module.exports = { dbSettings, serverHelper: serverHelper(), serverSettings, httpCode }
+module.exports = { dbSettings, serverHelper: serverHelper(), serverSettings, httpCode, firebaseConfig }
