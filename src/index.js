@@ -11,6 +11,7 @@ const firebaseAdmin = require('firebase-admin')
 const repo = require('./repo')
 const EventEmitter = require('events').EventEmitter
 const mediator = new EventEmitter()
+const ethers = require('./ethers')
 
 logger.d(`${name} Service`)
 
@@ -21,11 +22,16 @@ mediator.once('di.ready', container => {
   container.registerValue('logger', logger)
   container.registerValue('mediator', mediator)
 
+  // register ether for infuraID
+  container.registerValue('ethers', ethers(container))
+  logger.d('ethers provider connected!')
+
   firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(config.firebaseConfig.serviceAccountPath)
     // databaseURL: config.firebaseConfig.databaseURL
   })
-  console.log('connected firebase ', config.firebaseConfig)
+
+  logger.d('connected firebase ', config.firebaseConfig)
   container.registerValue('firebaseAdmin', firebaseAdmin)
 
   mediator.once('db.ready', db => {

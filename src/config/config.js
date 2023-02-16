@@ -32,8 +32,11 @@ const firebaseConfig = {
 }
 
 const blockchainConfig = {
-  infuraId: process.env.INFURA_ID || ''
+  infuraID: process.env.INFURA_ID || '310c4684f9a44cb382ba0a0fd7c14f10',
+  notiContractAddr: process.env.NOTI_CONTRACT_ADDR || '',
+  clientManagementContractAddr: process.env.CLIENT_MANAGEMENT_CONTRACT_ADDR || ''
 }
+
 const serverHelper = function () {
   const jwt = require('jsonwebtoken')
   const crypto = require('crypto')
@@ -212,4 +215,4 @@ const serverHelper = function () {
 
   return { decodeToken, encryptPassword, verifyToken, genToken, deepCompare, stringToSlugSearch, stringToSlug }
 }
-module.exports = { dbSettings, serverHelper: serverHelper(), serverSettings, httpCode, firebaseConfig }
+module.exports = { dbSettings, serverHelper: serverHelper(), serverSettings, httpCode, firebaseConfig, blockchainConfig }

@@ -9,6 +9,7 @@ module.exports = (container) => {
     } = container.resolve('models')
     const { httpCode, serverHelper } = container.resolve('config')
     const { accessRepo } = container.resolve('repo')
+    const { firebaseAdmin } = container.resolve('firebaseAdmin')
 
     const addAccess = async (req, res) => {
         try {
@@ -26,6 +27,16 @@ module.exports = (container) => {
             logger.e(e)
             res.status(httpCode.UNKNOWN_ERROR).json({ msg: 'UNKNOWN ERROR', ok: false })
         }
+    }
+
+    const sendNotification = async (notification) => {
+        firebaseAdmin.messaging().send(notification)
+            .then(res => {
+                logger.d(`Send message to ${notification} successes!: ${res}`)
+            })
+            .catch(err => {
+                logger.e(`Send message to ${notification} failed!, ${err}`)
+            })
     }
     const deleteAccess = async (req, res) => {
         try {
@@ -114,6 +125,7 @@ module.exports = (container) => {
                     pipe[i] = value
                 }
             })
+
             const data = await accessRepo.getAccess(pipe, perPage, skip, sort)
             const total = await accessRepo.getCount(pipe)
             return res.status(httpCode.SUCCESS).json({
