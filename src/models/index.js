@@ -40,7 +40,9 @@ module.exports = container => {
   const Access = require('./access.model')(joi, mongoose, { joi2MongoSchema })
   const Notification = require('./notification.model')(joi, mongoose, { joi2MongoSchema })
   const Post = require('./post.model')(joi, mongoose, { joi2MongoSchema })
-  const schemas = { Access, Notification, Post }
+  const Otp = require('./otp.model')(joi, mongoose, { joi2MongoSchema })
+  const Application = require('./application.model')(joi, mongoose, { joi2MongoSchema })
+  const schemas = { Access, Notification, Post, Otp, Application }
   const schemaValidator = (obj, type) => {
     const schema = schemas[type]
     if (schema) {

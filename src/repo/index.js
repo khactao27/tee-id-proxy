@@ -2,7 +2,15 @@ const repo = (container) => {
   const accessRepo = require('./accessRepo')(container)
   const notificationRepo = require('./notificationRepo')(container)
   const postRepo = require('./postRepo')(container)
-  return { accessRepo, notificationRepo, postRepo }
+  const otpRepo = require('./otpRepo')(container)
+  const applicationRepo = require('./applicationRepo')(container)
+  return {
+    accessRepo,
+    notificationRepo,
+    postRepo,
+    otpRepo,
+    applicationRepo
+  }
 }
 const connect = (container) => {
   const dbPool = container.resolve('db')

@@ -38,6 +38,7 @@
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.13",
     "morgan": "^1.10.0",
+    "otp-generator": "^4.0.1",
     "puppeteer": "^19.0.0",
     "redis": "^3.0.2",
     "request": "^2.88.0",

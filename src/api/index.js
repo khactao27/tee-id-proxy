@@ -3,5 +3,6 @@ module.exports = (app, container) => {
   // app.use(verifyCMSToken)
   require('./accessApi')(app, container)
   require('./notificationApi')(app, container)
+  require('./applicationApi')(app, container)
   require('./postApi')(app, container)
 }

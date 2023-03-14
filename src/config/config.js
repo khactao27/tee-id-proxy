@@ -1,7 +1,7 @@
 const DEFAULT_GOOGLE_APPLICATION_CREDENTIALS = require.resolve('./teeid-eaa77-firebase-adminsdk-6c205-1327df8963.json')
 
 const serverSettings = {
-  port: process.env.PORT || 8000,
+  port: process.env.PORT || 8002,
   basePath: process.env.BASE_PATH || '/api'
 }
 
@@ -18,11 +18,11 @@ const httpCode = {
 
 const dbSettings = {
   db: process.env.DB || 'id-proxy',
-  user: process.env.DB_USER || 'tee',
-  pass: process.env.DB_PASS || 'teeidadmin',
+  user: process.env.DB_USER || 'test',
+  pass: process.env.DB_PASS || '',
   repl: process.env.DB_REPLS || '',
   servers: (process.env.DB_SERVERS) ? process.env.DB_SERVERS.split(',') : [
-    '222.255.238.183:8016'
+    '10.210.39.247:27017'
   ]
 }
 
