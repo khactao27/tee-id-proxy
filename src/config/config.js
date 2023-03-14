@@ -18,11 +18,11 @@ const httpCode = {
 
 const dbSettings = {
   db: process.env.DB || 'id-proxy',
-  user: process.env.DB_USER || 'test',
-  pass: process.env.DB_PASS || '',
+  user: process.env.DB_USER || 'tee',
+  pass: process.env.DB_PASS || 'teeidadmin',
   repl: process.env.DB_REPLS || '',
   servers: (process.env.DB_SERVERS) ? process.env.DB_SERVERS.split(',') : [
-    '10.210.39.247:27017'
+    '222.255.238.183:8016'
   ]
 }
 
