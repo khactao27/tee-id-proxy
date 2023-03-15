@@ -29,7 +29,7 @@ module.exports = (container) => {
       firebaseAdmin.messaging().sendMulticast({
         notification: {
           title: 'Cảnh báo truy cập thông tin',
-          body: 'Bạn nhận được yêu cầu truy cập từ ứng dụng.'
+          body: 'Bạn nhận được yêu cầu truy cập từ ứng dụng, Tee Wallet.'
         },
         android: {
           notification: {
@@ -180,6 +180,11 @@ module.exports = (container) => {
         if (access.status === 0) {
           // generate otp
           const otp = otpGenerator.generate(6, { lowerCaseAlphabets: false, specialChars: false })
+          otpRepo.addOtp({
+            code: otp,
+            email: access.email,
+            sent: true
+          })
           await accessRepo.updateAccess(id, { status: 1 })
           return res.status(httpCode.SUCCESS).json({ keyConfirm: otp })
         }
@@ -196,7 +201,8 @@ module.exports = (container) => {
       const access = await accessRepo.getAccessById(id)
       if (access) {
         if (access.status === 0) {
-
+          await accessRepo.updateAccess(id, { status: -1 })
+          return res.status(httpCode.SUCCESS).json({ oke: true, msg: 'Từ chối yêu cầu thành công!' })
         }
       }
       return res.status(httpCode.BAD_REQUEST).json({ msg: 'Yêu cầu không hợp lệ!' })

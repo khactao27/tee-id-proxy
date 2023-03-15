@@ -15,7 +15,9 @@ const httpCode = {
   ADMIN_REQUIRE: 406,
   UNAUTHORIZED: 401
 }
-
+const urlConfig = {
+  id: process.env.ID || 'http://222.255.238.183:8004'
+}
 const dbSettings = {
   db: process.env.DB || 'id-proxy',
   user: process.env.DB_USER || 'tee',
@@ -215,4 +217,12 @@ const serverHelper = function () {
 
   return { decodeToken, encryptPassword, verifyToken, genToken, deepCompare, stringToSlugSearch, stringToSlug }
 }
-module.exports = { dbSettings, serverHelper: serverHelper(), serverSettings, httpCode, firebaseConfig, blockchainConfig }
+module.exports = {
+  dbSettings,
+  serverHelper: serverHelper(),
+  serverSettings,
+  httpCode,
+  firebaseConfig,
+  blockchainConfig,
+  urlConfig
+}

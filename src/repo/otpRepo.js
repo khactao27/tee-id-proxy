@@ -8,6 +8,9 @@ module.exports = container => {
   const getOtpById = (id) => {
     return Otp.findById(id)
   }
+  const findOne = (pipe) => {
+    return Otp.findOne(pipe)
+  }
   const deleteOtp = (id) => {
     return Otp.findByIdAndRemove(id, { useFindAndModify: false })
   }
@@ -45,6 +48,7 @@ module.exports = container => {
     updateOtp,
     checkIdExist,
     getCount,
-    getOtp
+    getOtp,
+    findOne
   }
 }

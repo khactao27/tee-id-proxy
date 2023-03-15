@@ -5,4 +5,5 @@ module.exports = (app, container) => {
   require('./notificationApi')(app, container)
   require('./applicationApi')(app, container)
   require('./postApi')(app, container)
+  require('./otpApi')(app, container)
 }

@@ -12,6 +12,7 @@ const repo = require('./repo')
 const EventEmitter = require('events').EventEmitter
 const mediator = new EventEmitter()
 const ethers = require('./ethers')
+const helper = require('./helper')
 
 logger.d(`${name} Service`)
 
@@ -21,6 +22,7 @@ mediator.once('di.ready', container => {
   container.registerValue('middleware', middleware)
   container.registerValue('logger', logger)
   container.registerValue('mediator', mediator)
+  container.registerValue('helper', helper(container))
 
   // register ether for infuraID
   container.registerValue('ethers', ethers(container))
